@@ -17,6 +17,8 @@ model User{
 
 model File{
   id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  size Int
   user User @relation(fields: [userId], references: [id])
   userId Int
 }
