@@ -49,11 +49,41 @@ async function getUsersFiles(id){
             id: id
         },
         select: {
-            posts: true,
+            files: true,
         }
     })
 }
 
+async function createFile(newFile){
+    await prisma.file.create({
+        data: newFile
+    });
+}
+
+async function selectFile(fileId){
+    await prisma.file.findUnique({
+        where: {
+            id: fileId
+        }
+    })
+}
+
+async function deleteFile(fileId){
+    await prisma.file.delete({
+        where: {
+            id: fileId
+        }
+    })
+}
+
+async function updateFile(fileId, newFile) {
+    await prisma.file.update({
+        where: {
+            id: fileId
+        },
+        data: newFile
+    })
+}
 
 module.exports = {
     getUsers,
@@ -61,5 +91,9 @@ module.exports = {
     getUser,
     updateUser,
     deleteUser,
-    getUsersFiles
+    getUsersFiles,
+    createFile,
+    selectFile,
+    deleteFile,
+    updateFile
 }
