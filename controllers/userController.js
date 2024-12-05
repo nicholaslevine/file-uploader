@@ -1,3 +1,4 @@
+const passport = require('passport');
 const {getUsers, makeUser, getUser, updateUser, deleteUser} = require('../queries/queries');
 
 const userController = {
@@ -17,17 +18,34 @@ const userController = {
         try{
             const {username, password, name} = req.body;
             await makeUser({username, password, name});
-            res.redirect('/sign-up');
+            passport.authenticate('local')(req, res, () => {
+                res.redirect('/');
+            })
             next();
         } catch(err) {
             next(err);
         }
     },
+    loginGet: (req, res) => {
+        res.render("log-in");
+    },
+    loginPost: (req, res, next) => {
+        passport.authenticate('local', {
+            successRedirect: '/',
+            failureRedirect: '/login',
+            failureFlash: true
+        })(req, res, next);
+    },
+    logout: (req, res, next) => {
+        req.logout((err) => {
+            if (err) return next(err);
+            res.redirect('/');
+        })
+    },
     getUser: async (req, res, next) => {
         try{
             const user = await getUser(req.body.username);
             return user;
-            next()
         } catch(err){
             next(err);
         }
