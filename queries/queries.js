@@ -1,15 +1,19 @@
-const {PrismaClient} = require('@prisma/client');
-const { captureRejectionSymbol } = require('events');
-
-const prisma = new PrismaClient();
+const prisma = require('../prisma/prisma');
 
 
 async function getUsers(){
+    try{
     const users = await prisma.users.findMany();
     return users;
+    }
+    catch(err){
+        console.error(err);
+        throw err;
+    }
 }
 
 async function makeUser(user){
+    try{
     await prisma.user.create({
         data: {
             name: user.name,
@@ -18,32 +22,56 @@ async function makeUser(user){
         }
     })
 }
+    catch(err){
+        console.error(err);
+        throw err;
+    }
+}
 async function getUser(username){
+    try{
     const user = await prisma.users.findUnique({
         where: {
             username: username,
         }
     })
+}
+    catch(err){
+        console.error(err);
+        throw err;
+    }
 };
 
 async function updateUser(id, updatedUser){
+    try{
     await prisma.user.update({
         where: {
             id: id,
         },
-        data: updatedUser
+        data: updatedUser,
 })
+    }
+catch(err){
+    console.error(err);
+    throw err;
+}
 };
 
 async function deleteUser(id){
+    try{
     await prisma.user.delete({
         where: {
             id: id,
         }
     })
 }
+    catch(err){
+        console.error(err);
+        throw err;
+    }
+}
 
 async function getUsersFiles(id){
+    try{
     await prisma.user.findUnique({
         where: {
             id: id
@@ -53,30 +81,54 @@ async function getUsersFiles(id){
         }
     })
 }
+    catch(err){
+        console.error(err);
+        throw err;
+    }
+}
 
 async function createFile(newFile){
+    try{
     await prisma.file.create({
         data: newFile
     });
 }
+    catch(err){
+        console.error(err);
+        throw err;
+    }
+}
 
 async function selectFile(fileId){
+    try{
     await prisma.file.findUnique({
         where: {
             id: fileId
         }
     })
 }
+    catch(err){
+        console.error(err);
+        throw err;
+    }
+}
 
 async function deleteFile(fileId){
+    try{
     await prisma.file.delete({
         where: {
             id: fileId
         }
     })
 }
+    catch(err){
+        console.error(err);
+        throw err;
+    }
+}
 
 async function updateFile(fileId, newFile) {
+    try{
     await prisma.file.update({
         where: {
             id: fileId
@@ -84,7 +136,11 @@ async function updateFile(fileId, newFile) {
         data: newFile
     })
 }
-
+    catch(err){
+        console.error(err);
+        throw err;
+    }
+}
 module.exports = {
     getUsers,
     makeUser,
