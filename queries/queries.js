@@ -126,21 +126,6 @@ async function deleteFile(fileId){
         throw err;
     }
 }
-
-async function updateFile(fileId, newFile) {
-    try{
-    await prisma.file.update({
-        where: {
-            id: fileId
-        },
-        data: newFile
-    })
-}
-    catch(err){
-        console.error(err);
-        throw err;
-    }
-}
 module.exports = {
     getUsers,
     makeUser,
@@ -151,5 +136,4 @@ module.exports = {
     createFile,
     selectFile,
     deleteFile,
-    updateFile
 }
