@@ -1,0 +1,1 @@
+Cool project where you can upload files that you want and using the multer middleware, will get processed and remembered. CRUD is allowed for both users and files (you can't update files). Prisa ORM is used for database abstraction with Postgresql. Mostly backend application with lots of Express JS. 
