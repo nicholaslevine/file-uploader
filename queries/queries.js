@@ -99,19 +99,6 @@ async function createFile(newFile){
     }
 }
 
-async function selectFile(fileId){
-    try{
-    await prisma.file.findUnique({
-        where: {
-            id: fileId
-        }
-    })
-}
-    catch(err){
-        console.error(err);
-        throw err;
-    }
-}
 
 async function deleteFile(fileId){
     try{
@@ -134,6 +121,5 @@ module.exports = {
     deleteUser,
     getUsersFiles,
     createFile,
-    selectFile,
     deleteFile,
 }

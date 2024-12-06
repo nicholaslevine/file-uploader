@@ -5,7 +5,7 @@ const userController = {
     displayUsers: async (req, res, next) => {
         try{
         const users = await getUsers();
-        res.render("index", { users });
+        res.render("users", { users });
         next();
         } catch (err){
             next(err);
@@ -27,7 +27,7 @@ const userController = {
         }
     },
     loginGet: (req, res) => {
-        res.render("log-in");
+        res.render("login");
     },
     loginPost: (req, res, next) => {
         passport.authenticate('local', {

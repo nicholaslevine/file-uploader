@@ -1,6 +1,6 @@
 const multer = require('multer');
 const path = require('path');
-const {getUsersFiles, createFile, selectFile, deleteFile} = require('../queries/queries');
+const {getUsersFiles, createFile, deleteFile} = require('../queries/queries');
 const { nextTick } = require('process');
 
 const storage = multer.diskStorage({
@@ -24,7 +24,7 @@ const fileController = {
     displayFiles: async (req, res, next) => {
         try{
             const files = await getUsersFiles(res.locals.currentUser.id);
-            res.render("files", {
+            res.render("index", {
                 files: files,
             });
             next()
@@ -47,17 +47,6 @@ const fileController = {
             res.redirect('/files');
             next();
         } catch(err){
-            next(err);
-        }
-    },
-    selectFile: async (req, res, next) => {
-        try{
-            const file = await selectFile(req.params.fileId);
-            res.render("/file-info", {
-                file
-            });
-            next();
-        } catch (err){
             next(err);
         }
     },
