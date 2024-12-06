@@ -6,6 +6,7 @@ const prisma = require('./prisma/prisma');
 const {PrismaSessionStore} = require('@quixo3/prisma-session-store');
 const path = require('node:path');
 const userController = require('./controllers/userController');
+const router = require('./routes/router');
 
 const app = express();
 
@@ -66,6 +67,8 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     next();
 });
+
+app.use("/", router);
 
 app.use((err, req, res, next) => {
     res.status(500).render("index", {
