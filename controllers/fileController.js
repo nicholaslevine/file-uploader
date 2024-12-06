@@ -53,7 +53,7 @@ const fileController = {
     deleteFile: async (req, res, next) => {
         try{
             await deleteFile(req.params.fileId);
-            res.redirect('/files');
+            res.redirect('/');
             next();
         } catch (err){
             next(err);
@@ -61,3 +61,5 @@ const fileController = {
     }
 
 }
+
+module.exports = fileController;
